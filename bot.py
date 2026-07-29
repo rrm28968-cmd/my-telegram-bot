@@ -21,8 +21,8 @@ logging.basicConfig(
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # --- AAPKI DETAILS ---
-ADMIN_ID = 8540523678  # Aapki User ID Yahan Set Ho Gayi Hai
-VIDEO_LINK = "https://t.me/+L9-IXAw3cixHWM1"  # Aapka Video Link
+ADMIN_ID = 4310820120  # Aapki User ID Yahan Set Ho Gayi Hai
+VIDEO_LINK = "https://t.me/+ggL2fXh9OUs1MDg1"  # Aapka Video Link
 UPI_ID = "9337091479@fam"
 PRICE = "149"
 
