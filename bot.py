@@ -21,7 +21,7 @@ logging.basicConfig(
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # --- AAPKI DETAILS ---
-ADMIN_ID = 7757393559  # Aapki Admin Telegram ID
+ADMIN_ID =  7757393559 # Aapki Admin Telegram ID
 VIDEO_LINK = "https://t.me/+ggL2fXh9OUs1MDg1"  # Aapka Link
 UPI_ID = "9337091479@fam"
 PRICE = "149"
