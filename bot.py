@@ -21,7 +21,7 @@ logging.basicConfig(
 # Render Environment Variable se Token uthayega (Safe Way)
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-VIDEO_LINK = "https://t.me/+L9-IXAw3cixHWM1"
+VIDEO_LINK = "https://t.me/+ggL2fXh9OUs1MDg1"
 UPI_ID = "9337091479@fam"
 PRICE = "149"
 
