@@ -21,8 +21,8 @@ logging.basicConfig(
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # --- AAPKI DETAILS ---
-ADMIN_ID = 4310820120  # Aapki User ID Yahan Set Ho Gayi Hai
-VIDEO_LINK = "https://t.me/+ggL2fXh9OUs1MDg1"  # Aapka Video Link
+ADMIN_ID = 7757393559  # Aapki Admin Telegram ID
+VIDEO_LINK = "https://t.me/+ggL2fXh9OUs1MDg1"  # Aapka Link
 UPI_ID = "9337091479@fam"
 PRICE = "149"
 
@@ -47,9 +47,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        f"👋 **Welcome!**\n\nVideo khareedne ke liye neeche button par click karein:",
+        f"👋 <b>Welcome!</b>\n\nVideo khareedne ke liye neeche button par click karein:",
         reply_markup=reply_markup,
-        parse_mode="Markdown",
+        parse_mode="HTML",
     )
 
 
@@ -59,12 +59,12 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data == "buy":
         pay_text = (
-            f"💰 **Payment Details:**\n\n"
-            f"• **Amount:** ₹{PRICE}\n"
-            f"• **UPI ID:** `{UPI_ID}`\n\n"
-            f"👉 Kisi bhi UPI app se payment karein aur **Screenshot** yahan bhej dein."
+            f"💰 <b>Payment Details:</b>\n\n"
+            f"• <b>Amount:</b> ₹{PRICE}\n"
+            f"• <b>UPI ID:</b> <code>{UPI_ID}</code>\n\n"
+            f"👉 Kisi bhi UPI app se payment karein aur <b>Screenshot</b> yahan bhej dein."
         )
-        await query.edit_message_text(pay_text, parse_mode="Markdown")
+        await query.edit_message_text(pay_text, parse_mode="HTML")
 
     # Admin Approve/Reject Logic
     elif query.data.startswith("approve_"):
@@ -72,11 +72,12 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             await context.bot.send_message(
                 chat_id=user_id,
-                text=f"🎉 **Payment Verified!**\n\nAapka video access link ye raha:\n{VIDEO_LINK}",
-                parse_mode="Markdown"
+                text=f"🎉 <b>Payment Verified!</b>\n\nAapka video access link ye raha:\n{VIDEO_LINK}",
+                parse_mode="HTML"
             )
             await query.edit_message_caption(
-                caption=f"{query.message.caption}\n\n✅ **STATUS: APPROVED**"
+                caption=f"{query.message.caption}\n\n✅ <b>STATUS: APPROVED</b>",
+                parse_mode="HTML"
             )
         except Exception as e:
             await query.edit_message_caption(caption=f"Error sending link: {e}")
@@ -86,10 +87,12 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             await context.bot.send_message(
                 chat_id=user_id,
-                text="❌ **Payment Verification Failed!**\n\nAapka screenshot galat ya incomplete hai. Kripya sahi payment screenshot bhejein."
+                text="❌ <b>Payment Verification Failed!</b>\n\nAapka screenshot galat ya incomplete hai. Kripya sahi payment screenshot bhejein.",
+                parse_mode="HTML"
             )
             await query.edit_message_caption(
-                caption=f"{query.message.caption}\n\n❌ **STATUS: REJECTED**"
+                caption=f"{query.message.caption}\n\n❌ <b>STATUS: REJECTED</b>",
+                parse_mode="HTML"
             )
         except Exception as e:
             await query.edit_message_caption(caption=f"Error: {e}")
@@ -101,8 +104,8 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # User ko notification
     await update.message.reply_text(
-        "⏳ **Payment screenshot mil gaya!**\n\nAdmin ise verify kar rahe hain, kripya thoda wait karein...",
-        parse_mode="Markdown"
+        "⏳ <b>Payment screenshot mil gaya!</b>\n\nAdmin ise verify kar rahe hain, kripya thoda wait karein...",
+        parse_mode="HTML"
     )
 
     # Admin ko screenshot bhejna
@@ -115,10 +118,12 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(admin_keyboard)
 
     username_str = f"@{user.username}" if user.username else "No Username"
+    first_name_clean = user.first_name.replace("<", "&lt;").replace(">", "&gt;") if user.first_name else "User"
+
     caption_text = (
-        f"📩 **New Payment Screenshot!**\n\n"
-        f"• **User:** {user.first_name} ({username_str})\n"
-        f"• **User ID:** `{user.id}`"
+        f"📩 <b>New Payment Screenshot!</b>\n\n"
+        f"• <b>User:</b> {first_name_clean} ({username_str})\n"
+        f"• <b>User ID:</b> <code>{user.id}</code>"
     )
 
     await context.bot.send_photo(
@@ -126,7 +131,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         photo=photo_id,
         caption=caption_text,
         reply_markup=reply_markup,
-        parse_mode="Markdown"
+        parse_mode="HTML"
     )
 
 
@@ -143,3 +148,4 @@ if __name__ == "__main__":
 
         print("Bot start ho raha hai...")
         app.run_polling()
+    
